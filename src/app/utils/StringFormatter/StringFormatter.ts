@@ -13,9 +13,6 @@ function getCurrency(currencyCode: string): string {
         return ''
     }
 }
-export function formatCurrency(currencyCode: string, amount:string): string {
-    const number = parseFloat(amount.replace(/,/g, '')); // Remove existing commas and parse to number
-
-    return getCurrency(currencyCode) + number.toLocaleString()
-
+export function formatCurrency(currencyCode: string, amount:number): string {
+    return getCurrency(currencyCode) + amount.toLocaleString()
 }
