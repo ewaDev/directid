@@ -9,8 +9,10 @@ describe('StringFormatter', () => {
     })
 
     it('should format the balance a number with the appropriate currency', ()=> {
-        expect(formatCurrency('USD', 2000)).toBe('$2,000')
-        expect(formatCurrency('GDP', 2000)).toBe('£2,000')
-        expect(formatCurrency('', 2342000)).toBe('2,342,000')
+        expect(formatCurrency('USD', 2000)).toBe('$2,000.00')
+        expect(formatCurrency('GDP', 2000)).toBe('£2,000.00')
+        expect(formatCurrency('GDP', 2000.45)).toBe('£2,000.45')
+        expect(formatCurrency('GDP', 2000.40)).toBe('£2,000.40')
+        expect(formatCurrency('', 2342000)).toBe('2,342,000.00')
     })
 })

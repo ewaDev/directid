@@ -14,5 +14,6 @@ function getCurrency(currencyCode: string): string {
     }
 }
 export function formatCurrency(currencyCode: string, amount:number): string {
-    return getCurrency(currencyCode) + amount.toLocaleString()
+    const formattedAmount = amount.toLocaleString(undefined, { minimumFractionDigits: 2 });
+    return getCurrency(currencyCode) + formattedAmount
 }
