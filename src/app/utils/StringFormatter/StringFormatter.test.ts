@@ -8,7 +8,7 @@ describe('StringFormatter', () => {
         expect(formatBranchCode('')).toBe('')
     })
 
-    it('should format the balance a number with the approperiate currency', ()=> {
+    it('should format the balance a number with the appropriate currency', ()=> {
         expect(formatCurrency('USD', 2000)).toBe('$2,000')
         expect(formatCurrency('GDP', 2000)).toBe('£2,000')
         expect(formatCurrency('', 2342000)).toBe('2,342,000')
