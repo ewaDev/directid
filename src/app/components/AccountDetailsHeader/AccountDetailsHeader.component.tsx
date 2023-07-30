@@ -12,14 +12,13 @@ type Props = {
 export default function AccountDetailsHeader({accountHolderNames, availableBalance, currencyCode, accountNumber, bankCode}: Props) {
     return (
         <div className={"sm:mx-1"}>
-            <div className={"grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 "}>
+            <div className={"grid md:grid-cols-2 sm:grid-cols-2"}>
                 <div className={"grid grid-cols-1 gap-4 p-4 align-center"}>
                     <Image
                         src="/directid_logo.svg"
                         alt="directid logo"
                         width={180}
                         height={37}
-                        className={"grid-cols-1"}
                         // Commenting out `priority` fixes the error:
                         // (0 , _reactdom.preload) is not a function in testing
                         // However, it also disables preloading the image, which is not ideal.
