@@ -1,4 +1,3 @@
-
 export function formatBranchCode (bankAccount:string) : string {
     const splitStringArray = bankAccount.match(/.{1,2}/g);
     return splitStringArray ? splitStringArray.join('-'): '';

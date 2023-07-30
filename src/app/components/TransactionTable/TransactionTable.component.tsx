@@ -136,14 +136,14 @@ export default function TransactionTable({transactions, currencyCode, availableB
 
 
     return(
-        <div className={"my-4 overflow-scroll overflow-y-hidden overflow-x-hidden "} >
+        <div className={"my-4 overflow-scroll overflow-y-hidden overflow-x "} >
         <table className={'w-full'}>
-            <thead className={"bg-gray-200 rounded-xl" } >
+            <thead className={"bg-gray-200" } >
             {table.getHeaderGroups().map(headerGroup => (
                 <tr key={headerGroup.id} className={"dark-font"}>
                     {headerGroup.headers.map(header => {
                         return (
-                            <th key={header.id} className={"px-7 py-4 text-left "}>
+                            <th key={header.id} className={"px-7 py-4 text-left"}>
                                 {header.isPlaceholder ? null : (
                                     <div
                                         {...{
@@ -171,9 +171,9 @@ export default function TransactionTable({transactions, currencyCode, availableB
             </thead>
             <tbody>
             {table.getRowModel().rows.map((row, index) => (
-                <tr key={row.id} className={`px-7 py-4 overflow-ellipsis text-left  + ${ index % 2 === 0 ?  '' : 'bg-gray-200  rounded-xl'}`  } >
+                <tr key={row.id} className={`px-4 py-4 overflow-ellipsis text-left table-text ${ index % 2 === 0 ?  '' : 'bg-gray-100'}`}   >
                     {row.getVisibleCells().map((cell) => (
-                        <td key={cell.id} className={"px-3 py-2"} >
+                        <td key={cell.id} className={"px-7 py-2 table-text"} >
                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         </td>
                     ))}
