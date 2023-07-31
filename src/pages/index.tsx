@@ -6,7 +6,8 @@ import {formatAndGetBalance} from "@/utils/TransactionHelpers/TransactionHelpers
 import LoadingPageComponent from "@/components/LoadingPageComponent";
 import {formatCurrency} from "@/utils/StringFormatter/StringFormatter";
 
-export default function Home({customerTransactions, availableBalance,accountHolderNames, currencyCode, accountNumber, bankCode }) {
+// eslint-disable-next-line react/prop-types
+export default function Home({customerTransactions, availableBalance,accountHolderNames, currencyCode, accountNumber, bankCode }:any) {
     if (customerTransactions === null) {
         return (<LoadingPageComponent/>)
     }
