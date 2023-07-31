@@ -1,4 +1,4 @@
-This project lives on a deployed [site](https://directid-git-main-ewadev.vercel.app/) 
+This project lives on a deployed [site](https://directid.vercel.app/) 
 
 ## Getting Started
 Install your dependencies and run 
