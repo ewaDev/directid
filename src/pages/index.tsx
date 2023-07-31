@@ -29,7 +29,23 @@ export default function Home({customerTransactions, availableBalance,accountHold
 }
 
 export async function getStaticProps() {
-    const fetchedData = await getAccountData()
+    let fetchedData ;
+
+    try {
+        fetchedData = await getAccountData()
+
+    } catch {
+        return {
+            props: {
+                customerTransactions: null,
+                availableBalance: null,
+                accountHolderNames: null,
+                currencyCode: null,
+                accountNumber: null,
+                bankCode:null
+            },
+        };
+    }
 
     const {accounts} = fetchedData
     const {balances, transactions} = accounts[0]
