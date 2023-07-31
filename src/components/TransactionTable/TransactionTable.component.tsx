@@ -1,6 +1,6 @@
 'use client'
-
-import {formatCurrency} from "@/app/utils/StringFormatter/StringFormatter";
+// import { IconName } from "react-icons/ai";
+import {formatCurrency} from "@/utils/StringFormatter/StringFormatter";
 import React, {useMemo, useState} from "react";
 import {
     ColumnDef,
@@ -9,7 +9,7 @@ import {
     getCoreRowModel, getSortedRowModel, SortingState,
     useReactTable,
 } from '@tanstack/react-table'
-import {TransactionData} from "@/app/types/Transaction";
+import {TransactionData} from "@/types/Transaction";
 
 
 type TransactionRow = {
@@ -23,12 +23,10 @@ type TransactionRow = {
 }
 
 type Props = {
-    transactions: Array<TransactionData>
-    currencyCode: string
-    availableBalance: number
+    customerTransactions: Array<TransactionData>
 }
 
-function formatAndGetBalance(transactions:Array<any>, currencyCode:string, startingBalance: number): Array<TransactionRow> {
+export function formatAndGetBalance(transactions:Array<any>, currencyCode:string, startingBalance: number): Array<TransactionRow> {
     let currentBalance = startingBalance;
 
     const mapData: Array<TransactionRow> = transactions.map((item, index) => {
@@ -41,7 +39,6 @@ function formatAndGetBalance(transactions:Array<any>, currencyCode:string, start
             description: "",
             transactionId: ""
         };
-
 
         if(item.creditDebitIndicator === 'Debit'){
             currentBalance = index === 0 ? currentBalance : currentBalance + item.amount
@@ -72,16 +69,12 @@ function formatAndGetBalance(transactions:Array<any>, currencyCode:string, start
     return mapData
 }
 
-export default function TransactionTable({transactions, currencyCode, availableBalance} : Props) {
+export default function TransactionTable({customerTransactions} : Props) {
     const [sorting, setSorting] = React.useState<SortingState>([])
-    const [tableData] = useState(formatAndGetBalance(transactions, currencyCode, availableBalance).slice(0,10))
+    const [tableData] = useState(customerTransactions)
 
     const columnHelper = createColumnHelper<TransactionRow>()
 
-
-    // useEffect(() => {
-    //
-    // }, )
 
     const columns = useMemo<ColumnDef<any, any>[]>(() => [
         columnHelper.accessor(row => row.description, {

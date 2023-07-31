@@ -5,9 +5,9 @@ export function formatBranchCode (bankAccount:string) : string {
 
 export function formatCurrency(currencyCode: string = 'GDP', amount:number): string {
     if(currencyCode === ''){
-        return amount.toLocaleString(undefined, { minimumFractionDigits: 2});
+        return amount.toLocaleString('en-us', { minimumFractionDigits: 2});
     }
 
-    return amount.toLocaleString(undefined, { minimumFractionDigits: 2, style: 'currency', currency: currencyCode});
+    return amount.toLocaleString('en-us', { minimumFractionDigits: 2, style: 'currency', currency: currencyCode});
 
 }

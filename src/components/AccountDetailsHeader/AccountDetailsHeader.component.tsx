@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import {formatBranchCode, formatCurrency} from "@/app/utils/StringFormatter/StringFormatter";
+import {formatBranchCode, formatCurrency} from "@/utils/StringFormatter/StringFormatter";
 
 type Props = {
     accountHolderNames: string
