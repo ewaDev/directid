@@ -6,8 +6,10 @@ import {formatAndGetBalance} from "@/utils/TransactionHelpers/TransactionHelpers
 import LoadingPageComponent from "@/components/LoadingPageComponent";
 import {formatCurrency} from "@/utils/StringFormatter/StringFormatter";
 
-// eslint-disable-next-line react/prop-types
+
 export default function Home({customerTransactions, availableBalance,accountHolderNames, currencyCode, accountNumber, bankCode }:any) {
+    const baseUrl = process.env["BASE_URL"]
+    console.log(baseUrl)
     if (customerTransactions === null) {
         return (<LoadingPageComponent/>)
     }
