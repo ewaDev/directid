@@ -11,7 +11,7 @@ type Props = {
 }
 export default function AccountDetailsHeader({accountHolderNames, availableBalance, currencyCode, accountNumber, bankCode}: Props) {
     return (
-        <div className={"sm:mx-1"}>
+
             <div className={"grid md:grid-cols-2 sm:grid-cols-2"}>
                 <div className={"grid grid-cols-1 gap-4 p-4 align-center"}>
                     <Image
@@ -41,7 +41,7 @@ export default function AccountDetailsHeader({accountHolderNames, availableBalan
                     </div>
                 </div>
             </div>
-        </div>
+
     )
 
 

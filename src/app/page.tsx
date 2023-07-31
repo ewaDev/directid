@@ -11,17 +11,17 @@ export default function Home() {
 
 
     return (
-    <main className={"sm:flex flex-col items-center justify-center h-screen min-w-max mx-2"} >
-
-        <AccountDetailsHeader
-            accountHolderNames={accountHolderNames}
-            availableBalance={availableBalance}
-            currencyCode={currencyCode}
-            accountNumber={accountNumber} bankCode={bankCode}
-        />
-        {/*@ts-ignore*/}
-        <TransactionTable  transactions={transactions} currencyCode={currencyCode} />
-
+    <main className={"sm:flex flex-col items-center justify-center h-screen"}  >
+        <div className={"mx-1"}>
+            <AccountDetailsHeader
+                accountHolderNames={accountHolderNames}
+                availableBalance={availableBalance}
+                currencyCode={currencyCode}
+                accountNumber={accountNumber} bankCode={bankCode}
+            />
+            {/*@ts-ignore*/}
+            <TransactionTable  transactions={transactions} currencyCode={currencyCode} />
+        </div>
 
     </main>
   )

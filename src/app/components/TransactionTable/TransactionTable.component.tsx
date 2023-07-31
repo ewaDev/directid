@@ -29,10 +29,6 @@ type Props = {
 export default function TransactionTable({transactions, currencyCode} : Props) {
     const [sorting, setSorting] = React.useState<SortingState>([])
 
-    // const { data, isLoading, isFetching } = useGetUsersQuery({
-    //     sortBy: sorting.map((s) => `${s.id}:${s.desc ? 'DESC' : 'ASC'}`).join(','),
-    // });
-
     const mapData: Array<TransactionRow> = transactions.map(item => {
         return {
             transactionId: item.transactionId,
@@ -52,6 +48,7 @@ export default function TransactionTable({transactions, currencyCode} : Props) {
             id: 'Transaction',
             cell: info => <i>{info.getValue()}</i>,
             header: () => <span>Transaction</span>,
+
             enableSorting: false
         }),
         columnHelper.accessor(row => row.date, {
@@ -93,13 +90,14 @@ export default function TransactionTable({transactions, currencyCode} : Props) {
 
 
     return(
-        <table>
+        <div className={"my-4 overflow-scroll"}>
+        <table className={'w-full'}>
             <thead>
             {table.getHeaderGroups().map(headerGroup => (
                 <tr key={headerGroup.id}>
                     {headerGroup.headers.map(header => {
                         return (
-                            <th key={header.id} colSpan={header.colSpan}>
+                            <th key={header.id} className={"px-7 py-2"}>
                                 {header.isPlaceholder ? null : (
                                     <div
                                         {...{
@@ -127,7 +125,7 @@ export default function TransactionTable({transactions, currencyCode} : Props) {
             </thead>
             <tbody>
             {table.getRowModel().rows.map(row => (
-                <tr key={row.id}>
+                <tr key={row.id} className={"px-7 py-2 overflow-ellipsis "}>
                     {row.getVisibleCells().map((cell) => (
                         <td key={cell.id}>
                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -137,5 +135,6 @@ export default function TransactionTable({transactions, currencyCode} : Props) {
             ))}
             </tbody>
         </table>
+        </div>
     )
 }
