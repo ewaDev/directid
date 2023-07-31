@@ -1,6 +1,5 @@
 'use client'
 // import { IconName } from "react-icons/ai";
-import {formatCurrency} from "@/utils/StringFormatter/StringFormatter";
 import React, {useMemo, useState} from "react";
 import {
     ColumnDef,
@@ -9,106 +8,50 @@ import {
     getCoreRowModel, getSortedRowModel, SortingState,
     useReactTable,
 } from '@tanstack/react-table'
-import {TransactionData} from "@/types/Transaction";
-
-
-type TransactionRow = {
-    transactionId: string
-    description: string
-    date: string,
-    category: string
-    debit: string
-    credit: string
-    balance: string
-}
+import {TransactionData, CustomerTransactionData} from "@/types/Transaction";
 
 type Props = {
     customerTransactions: Array<TransactionData>
-}
-
-export function formatAndGetBalance(transactions:Array<any>, currencyCode:string, startingBalance: number): Array<TransactionRow> {
-    let currentBalance = startingBalance;
-
-    const mapData: Array<TransactionRow> = transactions.map((item, index) => {
-        let transactionItem : TransactionRow = {
-            balance: "",
-            category: "",
-            credit: "",
-            date: "",
-            debit: "",
-            description: "",
-            transactionId: ""
-        };
-
-        if(item.creditDebitIndicator === 'Debit'){
-            currentBalance = index === 0 ? currentBalance : currentBalance + item.amount
-            transactionItem.balance = formatCurrency(currencyCode,currentBalance)
-            transactionItem.debit = formatCurrency(currencyCode, item.amount)
-            // transactionItem.balance = currentBalance.toString()
-            // transactionItem.debit = item.amount
-
-            transactionItem.credit = '-'
-        } else {
-            currentBalance = index === 0 ? currentBalance : currentBalance - item.amount
-            transactionItem.balance = formatCurrency(currencyCode, currentBalance)
-            transactionItem.credit = formatCurrency(currencyCode, item.amount)
-
-            // transactionItem.balance = currentBalance.toString()
-            // transactionItem.credit = item.amount.toString()
-            transactionItem.debit = '-'
-        }
-
-        transactionItem.transactionId = item.transactionId;
-        transactionItem.description = item.description;
-        transactionItem.date = item.bookingDate
-        transactionItem.category= item.enrichedData?.category.name;
-
-        return transactionItem
-    })
-
-    return mapData
 }
 
 export default function TransactionTable({customerTransactions} : Props) {
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [tableData] = useState(customerTransactions)
 
-    const columnHelper = createColumnHelper<TransactionRow>()
-
+    const columnHelper = createColumnHelper<CustomerTransactionData>()
 
     const columns = useMemo<ColumnDef<any, any>[]>(() => [
         columnHelper.accessor(row => row.description, {
             id: 'Transaction',
-            cell: info => <i>{info.getValue()}</i>,
+            cell: info => <span>{info.getValue()}</span>,
             header: () => <span>Transaction</span>,
-
             enableSorting: false
         }),
         columnHelper.accessor(row => row.date, {
             id: 'Date',
-            cell: info => <i>{new Date( info.getValue()).toLocaleDateString('en-GB', {year: 'numeric', month: '2-digit', day: '2-digit'})}</i>,
+            cell: info => <span>{new Date( info.getValue()).toLocaleDateString('en-GB', {year: 'numeric', month: '2-digit', day: '2-digit'})}</span>,
             header: () => <span>Date</span>,
         }),
         columnHelper.accessor(row => row.category, {
             id: 'Category',
-            cell: info => <i>{info.getValue()}</i>,
+            cell: info => <span>{info.getValue()}</span>,
             header: () => <span>Category</span>,
             }),
         columnHelper.accessor(row => row.debit, {
             id: 'Debit',
-            cell: info => <i>{info.getValue()}</i>,
+            cell: info => <span>{info.getValue()}</span>,
             header: () => <span>Debit</span>,
             enableSorting: false
         }),
         columnHelper.accessor(row => row.credit, {
             id: 'Credit',
-            cell: info => <i>{info.getValue()}</i>,
+            cell: info => <span>{info.getValue()}</span>,
             header: () => <span>Credit</span>,
             enableSorting: false
         }),
         columnHelper.accessor(row => row.balance, {
             id: 'Balance',
-            cell: info => <i>{info.getValue()}</i>,
+            cell: info => <span>{info.getValue()}</span>,
             header: () => <span>Balance</span>,
             enableSorting: false
         }),
@@ -127,13 +70,12 @@ export default function TransactionTable({customerTransactions} : Props) {
         getSortedRowModel: getSortedRowModel(),
     })
 
-
     return(
         <div className={"my-4 overflow-scroll overflow-y-hidden overflow-x "} >
         <table className={'w-full'}>
             <thead className={"bg-gray-200" } >
             {table.getHeaderGroups().map(headerGroup => (
-                <tr key={headerGroup.id} className={"dark-font"}>
+                <tr key={headerGroup.id} className={"dark-font table-text"}>
                     {headerGroup.headers.map(header => {
                         return (
                             <th key={header.id} className={"px-7 py-4 text-left"}>

@@ -6,10 +6,9 @@ import {test, expect} from "@jest/globals";
 
 
 test('loads and displays greeting', async () => {
-
     render(<AccountDetailsHeader
             accountHolderNames= {'The Groke'}
-            availableBalance={10000.30}
+            availableBalance={'£10,000.30'}
             currencyCode='GDP'
             accountNumber='19090'
             bankCode='1009903' />
