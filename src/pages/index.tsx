@@ -33,8 +33,20 @@ export async function getStaticProps() {
 
     try {
         fetchedData = await getAccountData()
-
     } catch {
+        return {
+            props: {
+                customerTransactions: null,
+                availableBalance: null,
+                accountHolderNames: null,
+                currencyCode: null,
+                accountNumber: null,
+                bankCode:null
+            },
+        };
+    }
+
+    if(!fetchedData) {
         return {
             props: {
                 customerTransactions: null,
