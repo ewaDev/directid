@@ -65,3 +65,18 @@ p {
 .dark-font {
   color: #0b1354;
 }
+
+table thead th:first-child{
+  border-radius:10px 0 0 10px;
+}
+
+table thead th:last-child{
+  border-radius:0 10px 10px 0;
+}
+
+table tbody tr {
+  border-radius: 20px;
+  margin: 5px;
+  border: 2px red solid;
+  /*display: flex;*/
+}

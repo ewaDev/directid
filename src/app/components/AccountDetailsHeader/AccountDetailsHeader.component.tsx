@@ -24,7 +24,8 @@ export default function AccountDetailsHeader({accountHolderNames, availableBalan
                         // However, it also disables preloading the image, which is not ideal.
                         // this is a next js issue https://github.com/vercel/next.js/issues/53272
                         // leaving as not real production code
-                        // priority
+                        priority
+                        style={{width: 180, height: 37}}
                     />
                     <h4 className={"dark-font"}> User Transactions ({currencyCode}) </h4>
                 </div>
@@ -41,8 +42,5 @@ export default function AccountDetailsHeader({accountHolderNames, availableBalan
                     </div>
                 </div>
             </div>
-
     )
-
-
 }

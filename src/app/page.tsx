@@ -7,7 +7,11 @@ export default function Home() {
     const {accounts} = file
     const {accountHolderNames, identifiers, balances, currencyCode, transactions} = accounts[0]
     const {accountNumber, bankCode} = identifiers
-    const availableBalance = balances.available.amount
+    let availableBalance = balances.available.amount
+
+    if(balances.available.creditDebitIndicator === "Credit") {
+        availableBalance = availableBalance * -1
+    }
 
 
     return (
@@ -20,7 +24,7 @@ export default function Home() {
                 accountNumber={accountNumber} bankCode={bankCode}
             />
             {/*@ts-ignore*/}
-            <TransactionTable  transactions={transactions} currencyCode={currencyCode} />
+            <TransactionTable  transactions={transactions} currencyCode={currencyCode} availableBalance={availableBalance} />
         </div>
 
     </main>

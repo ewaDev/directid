@@ -19,29 +19,69 @@ type TransactionRow = {
     category: string
     debit: string
     credit: string
+    balance: string
 }
 
 type Props = {
     transactions: Array<TransactionData>
     currencyCode: string
+    availableBalance: number
 }
 
-export default function TransactionTable({transactions, currencyCode} : Props) {
-    const [sorting, setSorting] = React.useState<SortingState>([])
+function formatAndGetBalance(transactions:Array<any>, currencyCode:string, startingBalance: number): Array<TransactionRow> {
+    let currentBalance = startingBalance;
 
-    const mapData: Array<TransactionRow> = transactions.map(item => {
-        return {
-            transactionId: item.transactionId,
-            description: item.description,
-            date: item.bookingDate,
-            category: item.enrichedData?.category.name,
-            debit: item.creditDebitIndicator === 'Debit' ? formatCurrency(currencyCode, item.amount) : '-',
-            credit: item.creditDebitIndicator === 'Credit' ? formatCurrency(currencyCode, item.amount) : '-'
+    const mapData: Array<TransactionRow> = transactions.map((item, index) => {
+        let transactionItem : TransactionRow = {
+            balance: "",
+            category: "",
+            credit: "",
+            date: "",
+            debit: "",
+            description: "",
+            transactionId: ""
+        };
+
+
+        if(item.creditDebitIndicator === 'Debit'){
+            currentBalance = index === 0 ? currentBalance : currentBalance + item.amount
+            transactionItem.balance = formatCurrency(currencyCode,currentBalance)
+            transactionItem.debit = formatCurrency(currencyCode, item.amount)
+            // transactionItem.balance = currentBalance.toString()
+            // transactionItem.debit = item.amount
+
+            transactionItem.credit = '-'
+        } else {
+            currentBalance = index === 0 ? currentBalance : currentBalance - item.amount
+            transactionItem.balance = formatCurrency(currencyCode, currentBalance)
+            transactionItem.credit = formatCurrency(currencyCode, item.amount)
+
+            // transactionItem.balance = currentBalance.toString()
+            // transactionItem.credit = item.amount.toString()
+            transactionItem.debit = '-'
         }
-    }).sort((a:TransactionRow, b:TransactionRow) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-    const [tableData] = useState(mapData.slice(0,10))
+        transactionItem.transactionId = item.transactionId;
+        transactionItem.description = item.description;
+        transactionItem.date = item.bookingDate
+        transactionItem.category= item.enrichedData?.category.name;
+
+        return transactionItem
+    })
+
+    return mapData
+}
+
+export default function TransactionTable({transactions, currencyCode, availableBalance} : Props) {
+    const [sorting, setSorting] = React.useState<SortingState>([])
+    const [tableData] = useState(formatAndGetBalance(transactions, currencyCode, availableBalance).slice(0,10))
+
     const columnHelper = createColumnHelper<TransactionRow>()
+
+
+    // useEffect(() => {
+    //
+    // }, )
 
     const columns = useMemo<ColumnDef<any, any>[]>(() => [
         columnHelper.accessor(row => row.description, {
@@ -73,6 +113,12 @@ export default function TransactionTable({transactions, currencyCode} : Props) {
             header: () => <span>Credit</span>,
             enableSorting: false
         }),
+        columnHelper.accessor(row => row.balance, {
+            id: 'Balance',
+            cell: info => <i>{info.getValue()}</i>,
+            header: () => <span>Balance</span>,
+            enableSorting: false
+        }),
     ], [])
 
     const table = useReactTable({
@@ -90,14 +136,14 @@ export default function TransactionTable({transactions, currencyCode} : Props) {
 
 
     return(
-        <div className={"my-4 overflow-scroll"}>
+        <div className={"my-4 overflow-scroll overflow-y-hidden overflow-x-hidden "} >
         <table className={'w-full'}>
-            <thead>
+            <thead className={"bg-gray-200 rounded-xl" } >
             {table.getHeaderGroups().map(headerGroup => (
-                <tr key={headerGroup.id}>
+                <tr key={headerGroup.id} className={"dark-font"}>
                     {headerGroup.headers.map(header => {
                         return (
-                            <th key={header.id} className={"px-7 py-2"}>
+                            <th key={header.id} className={"px-7 py-4 text-left "}>
                                 {header.isPlaceholder ? null : (
                                     <div
                                         {...{
@@ -124,10 +170,10 @@ export default function TransactionTable({transactions, currencyCode} : Props) {
             ))}
             </thead>
             <tbody>
-            {table.getRowModel().rows.map(row => (
-                <tr key={row.id} className={"px-7 py-2 overflow-ellipsis "}>
+            {table.getRowModel().rows.map((row, index) => (
+                <tr key={row.id} className={`px-7 py-4 overflow-ellipsis text-left  + ${ index % 2 === 0 ?  '' : 'bg-gray-200  rounded-xl'}`  } >
                     {row.getVisibleCells().map((cell) => (
-                        <td key={cell.id}>
+                        <td key={cell.id} className={"px-3 py-2"} >
                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         </td>
                     ))}
