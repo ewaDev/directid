@@ -1,65 +1,25 @@
 'use client'
 // import { IconName } from "react-icons/ai";
-import React, {useMemo, useState} from "react";
+import React, {useMemo} from "react";
 import {
-    ColumnDef,
-    createColumnHelper,
     flexRender,
     getCoreRowModel, getSortedRowModel, SortingState,
     useReactTable,
 } from '@tanstack/react-table'
 import { CustomerTransactionData} from "@/types/Transaction";
+import {TransactionTableColumns} from "@/components/TransactionTable/TransactionTableColumns";
+import {TransactionRow} from "@/components/TransactionTable/TransactionTableRow.component";
 
 type Props = {
     customerTransactions: Array<CustomerTransactionData>
 }
-
 export default function TransactionTable({customerTransactions} : Props) {
     const [sorting, setSorting] = React.useState<SortingState>([])
-    const [tableData] = useState(customerTransactions)
-
-    const columnHelper = createColumnHelper<CustomerTransactionData>()
-
-    const columns = useMemo<ColumnDef<any, any>[]>(() => [
-        columnHelper.accessor(row => row.description, {
-            id: 'Transaction',
-            cell: info => <span>{info.getValue()}</span>,
-            header: () => <span>Transaction</span>,
-            enableSorting: false
-        }),
-        columnHelper.accessor(row => row.date, {
-            id: 'Date',
-            cell: info => <span>{new Date( info.getValue()).toLocaleDateString('en-GB', {year: 'numeric', month: '2-digit', day: '2-digit'})}</span>,
-            header: () => <span>Date</span>,
-        }),
-        columnHelper.accessor(row => row.category, {
-            id: 'Category',
-            cell: info => <span>{info.getValue()}</span>,
-            header: () => <span>Category</span>,
-            }),
-        columnHelper.accessor(row => row.debit, {
-            id: 'Debit',
-            cell: info => <span>{info.getValue()}</span>,
-            header: () => <span>Debit</span>,
-            enableSorting: false
-        }),
-        columnHelper.accessor(row => row.credit, {
-            id: 'Credit',
-            cell: info => <span>{info.getValue()}</span>,
-            header: () => <span>Credit</span>,
-            enableSorting: false
-        }),
-        columnHelper.accessor(row => row.balance, {
-            id: 'Balance',
-            cell: info => <span>{info.getValue()}</span>,
-            header: () => <span>Balance</span>,
-            enableSorting: false
-        }),
-    ], [])
+    const tableData = useMemo(() => customerTransactions, [customerTransactions]);
 
     const table = useReactTable({
         data: tableData,
-        columns: columns,
+        columns: TransactionTableColumns,
         state: {
             sorting,
         },
@@ -106,13 +66,7 @@ export default function TransactionTable({customerTransactions} : Props) {
             </thead>
             <tbody>
             {table.getRowModel().rows.map((row) => (
-                <tr key={row.id} className={`px-4 py-4 overflow-ellipsis text-left table-text`}   >
-                    {row.getVisibleCells().map((cell) => (
-                        <td key={cell.id} className={"px-7 py-2 table-text"} >
-                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </td>
-                    ))}
-                </tr>
+                <TransactionRow key={row.id} row={row} />
             ))}
             </tbody>
         </table>
