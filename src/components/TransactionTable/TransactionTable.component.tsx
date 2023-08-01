@@ -8,10 +8,10 @@ import {
     getCoreRowModel, getSortedRowModel, SortingState,
     useReactTable,
 } from '@tanstack/react-table'
-import {TransactionData, CustomerTransactionData} from "@/types/Transaction";
+import { CustomerTransactionData} from "@/types/Transaction";
 
 type Props = {
-    customerTransactions: Array<TransactionData>
+    customerTransactions: Array<CustomerTransactionData>
 }
 
 export default function TransactionTable({customerTransactions} : Props) {
@@ -71,14 +71,14 @@ export default function TransactionTable({customerTransactions} : Props) {
     })
 
     return(
-        <div className={"my-4 overflow-scroll overflow-y-hidden overflow-x "} >
+        <div className={"my-4 overflow-scroll overflow-y-hidden overflow-x"} >
         <table className={'w-full'}>
-            <thead className={"bg-gray-200" } >
+            <thead className={"bg-transparent"} >
             {table.getHeaderGroups().map(headerGroup => (
                 <tr key={headerGroup.id} className={"dark-font table-text"}>
                     {headerGroup.headers.map(header => {
                         return (
-                            <th key={header.id} className={"px-7 py-4 text-left"}>
+                            <th key={header.id} className={"px-7 py-4 text-left bg-gray-200"}>
                                 {header.isPlaceholder ? null : (
                                     <div
                                         {...{
@@ -105,8 +105,8 @@ export default function TransactionTable({customerTransactions} : Props) {
             ))}
             </thead>
             <tbody>
-            {table.getRowModel().rows.map((row, index) => (
-                <tr key={row.id} className={`px-4 py-4 overflow-ellipsis text-left table-text ${ index % 2 === 0 ?  '' : 'bg-gray-100'}`}   >
+            {table.getRowModel().rows.map((row) => (
+                <tr key={row.id} className={`px-4 py-4 overflow-ellipsis text-left table-text`}   >
                     {row.getVisibleCells().map((cell) => (
                         <td key={cell.id} className={"px-7 py-2 table-text"} >
                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
