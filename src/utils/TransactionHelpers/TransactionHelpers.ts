@@ -1,4 +1,4 @@
-import {formatCurrency} from "@/utils/StringFormatter/StringFormatter";
+import {capitaliseWordsInSentence, formatCurrency} from "@/utils/StringFormatter/StringFormatter";
 import {CustomerTransactionData} from "@/types/Transaction";
 
 export function formatAndGetBalance(transactions:Array<any>, currencyCode:string, startingBalance: number): Array<CustomerTransactionData> {
@@ -28,7 +28,7 @@ export function formatAndGetBalance(transactions:Array<any>, currencyCode:string
         }
 
         transactionItem.transactionId = item.transactionId;
-        transactionItem.description = item.description;
+        transactionItem.description = capitaliseWordsInSentence(item.description);
         transactionItem.date = item.bookingDate
         transactionItem.category= item.enrichedData?.category.name;
 

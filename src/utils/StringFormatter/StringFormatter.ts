@@ -11,3 +11,16 @@ export function formatCurrency(currencyCode: string = 'GDP', amount:number): str
     return amount.toLocaleString('en-us', { minimumFractionDigits: 2, style: 'currency', currency: currencyCode});
 
 }
+
+export function capitaliseWordsInSentence(sentence: string) : string {
+    const words = sentence.toLowerCase().split(' ');
+
+    return words.map((word) => {
+        if (word.length > 0) {
+            return word[0].toUpperCase() + word.slice(1);
+        } else {
+            return word;
+        }
+    }).join(' ');
+
+}
