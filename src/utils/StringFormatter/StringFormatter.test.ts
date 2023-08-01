@@ -25,30 +25,30 @@ describe('StringFormatter', () => {
 
     const formatCurrencyTests = [
         {
-            input: {currency: 'USD', amount: 2000.00 },
+            input: {countryCode: 'us',currency: 'USD', amount: 2000.00 },
             expected: '$2,000.00'
         },
         {
-            input: {currency: 'GBP', amount: 2000 },
+            input: {countryCode: 'gb', currency: 'GBP', amount: 2000 },
             expected: '£2,000.00'
         },
         {
-            input: {currency: 'GBP', amount: 2000.45 },
+            input: { countryCode: 'gb', currency: 'GBP', amount: 2000.45 },
             expected: '£2,000.45'
         },
         {
-            input: {currency: 'EUR', amount: 2000.45 },
+            input: {countryCode: 'be', currency: 'EUR', amount: 2000.45 },
             expected: '€2,000.45'
         },
         {
-            input: {currency: '', amount: 2000.45 },
+            input: {countryCode: '', currency: '', amount: 2000.45 },
             expected: '2,000.45'
         },
 
     ];
     formatCurrencyTests.forEach(test => {
         it(`Should return ${test.expected}, given ${test.input.currency} currency and ${test.input.amount} amount`, () => {
-            expect(formatCurrency(test.input.currency, test.input.amount)).toBe(test.expected)
+            expect(formatCurrency(test.input.countryCode, test.input.currency, test.input.amount)).toBe(test.expected)
         });
     });
 

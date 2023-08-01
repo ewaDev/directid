@@ -3,12 +3,13 @@ export function formatBranchCode (bankAccount:string) : string {
     return splitStringArray ? splitStringArray.join('-'): '';
 }
 
-export function formatCurrency(currencyCode: string = 'GDP', amount:number): string {
+export function formatCurrency(countryCode:string = 'gb', currencyCode: string = 'GDP', amount:number): string {
     if(currencyCode === ''){
         return amount.toLocaleString('en-us', { minimumFractionDigits: 2});
     }
 
-    return amount.toLocaleString('en-us', { minimumFractionDigits: 2, style: 'currency', currency: currencyCode});
+
+    return amount.toLocaleString(`en-${countryCode.toLowerCase()}`, { minimumFractionDigits: 2, style: 'currency', currency: currencyCode});
 
 }
 

@@ -1,15 +1,14 @@
 import React  from "react";
 import AccountDetailsHeader from "@/components/AccountDetailsHeader/AccountDetailsHeader.component";
 import TransactionTable from "@/components/TransactionTable/TransactionTable.component";
-import {getAccountData} from "@/pages/api/accounts";
+import {getProviderData} from "@/pages/api/provider";
 import {formatAndGetBalance} from "@/utils/TransactionHelpers/TransactionHelpers";
 import LoadingPageComponent from "@/components/LoadingPageComponent";
 import {formatCurrency} from "@/utils/StringFormatter/StringFormatter";
+import {ProviderData} from "@/pages/api/provider.type";
 
 
-export default function Home({customerTransactions, availableBalance,accountHolderNames, currencyCode, accountNumber, bankCode }:any) {
-    const baseUrl = process.env["BASE_URL"]
-    console.log(baseUrl)
+export default function Home({customerTransactions, availableBalance,accountHolderNames, currencyCode, accountNumber, bankCode}:any) {
     if (customerTransactions === null) {
         return (<LoadingPageComponent/>)
     }
@@ -31,10 +30,10 @@ export default function Home({customerTransactions, availableBalance,accountHold
 }
 
 export async function getStaticProps() {
-    let fetchedData ;
+    let fetchedData: ProviderData ;
 
     try {
-        fetchedData = await getAccountData()
+        fetchedData = await getProviderData()
     } catch {
         return {
             props: {
@@ -61,7 +60,7 @@ export async function getStaticProps() {
         };
     }
 
-    const {accounts} = fetchedData
+    const {accounts, countryCode} = fetchedData
     const {balances, transactions} = accounts[0]
     const {accountHolderNames, identifiers, currencyCode} = accounts[0]
     const {accountNumber, bankCode} = identifiers
@@ -71,9 +70,8 @@ export async function getStaticProps() {
     if(balances.available.creditDebitIndicator === "Credit") {
         availableBalance = availableBalance * -1
     }
-    const customerBalance = formatCurrency(currencyCode,availableBalance)
-
-    const customerTransactions = formatAndGetBalance(transactions, currencyCode, availableBalance)
+    const customerBalance = formatCurrency(countryCode,currencyCode, availableBalance)
+    const customerTransactions = formatAndGetBalance(transactions, currencyCode, countryCode, availableBalance)
 
     return {
         props: {
@@ -81,6 +79,7 @@ export async function getStaticProps() {
             availableBalance: customerBalance,
             accountHolderNames,
             currencyCode,
+            countryCode,
             accountNumber,
             bankCode
         },
