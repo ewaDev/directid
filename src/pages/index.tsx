@@ -9,6 +9,7 @@ import {ProviderData} from "@/pages/api/provider.type";
 
 
 export default function Home({customerTransactions, availableBalance,accountHolderNames, currencyCode, accountNumber, bankCode}:any) {
+
     if (customerTransactions === null) {
         return (<LoadingPageComponent/>)
     }
