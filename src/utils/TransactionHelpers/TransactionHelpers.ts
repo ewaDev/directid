@@ -28,7 +28,7 @@ export function formatAndGetBalance(transactions:Array<any>, currencyCode:string
         }
 
         transactionItem.transactionId = item.transactionId;
-        transactionItem.description = capitaliseWordsInSentence(item.description);
+        transactionItem.description = capitaliseWordsInSentence(item.description).replace(/\s+/g, ' ');
         transactionItem.date = item.bookingDate;
         transactionItem.category= item.enrichedData?.category.name;
 

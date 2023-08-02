@@ -35,7 +35,7 @@ export type TransactionData = {
     proprietaryTransactionCode: null | string;
     bookingDate: string;
     merchantDetails: {
-        merchantName: string;
+        merchantName: string | null;
         merchantCategoryCode: string | null;
     };
     enrichedData: {
@@ -49,7 +49,7 @@ export type TransactionData = {
             name: string;
             confidence: number;
         };
-        predictedMerchantName: string;
+        predictedMerchantName: string | null;
     };
 }
 
