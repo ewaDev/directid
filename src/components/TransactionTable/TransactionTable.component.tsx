@@ -32,6 +32,7 @@ export default function TransactionTable({customerTransactions} : Props) {
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
+        autoResetPageIndex: false,
         initialState: {
             pagination: {
                 pageSize: 15,
@@ -39,6 +40,8 @@ export default function TransactionTable({customerTransactions} : Props) {
         },
 
     })
+
+
 
 
     return(
