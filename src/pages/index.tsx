@@ -1,11 +1,12 @@
 import React  from "react";
-import AccountDetailsHeader from "@/components/AccountDetailsHeader/AccountDetailsHeader.component";
+
 import TransactionTable from "@/components/TransactionTable/TransactionTable.component";
 import {getProviderData} from "@/pages/api/provider";
 import {formatAndGetBalance} from "@/utils/TransactionHelpers/TransactionHelpers";
 import LoadingPageComponent from "@/components/LoadingPageComponent";
 import {formatCurrency} from "@/utils/StringFormatter/StringFormatter";
 import {ProviderData} from "@/pages/api/provider.type";
+import {AccountDetailsHeader} from "@/components/AccountDetailsHeader/AccountDetailsHeader.component";
 
 
 export default function Home({customerTransactions, availableBalance,accountHolderNames, currencyCode, accountNumber, bankCode}:any) {
@@ -24,7 +25,7 @@ export default function Home({customerTransactions, availableBalance,accountHold
                     accountNumber={accountNumber}
                     bankCode={bankCode}
                 />
-                <TransactionTable  customerTransactions={customerTransactions} />
+                <TransactionTable customerTransactions={customerTransactions} />
             </div>
         </main>
   )

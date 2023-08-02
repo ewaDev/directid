@@ -5,7 +5,7 @@ type TransactionRowProps = {
     row: Row<any>
 };
 
-export const TransactionRow: React.FC<TransactionRowProps> = ({ row }) => {
+const TransactionRow: React.FC<TransactionRowProps> = ({ row }) => {
     return (
         <tr key={row.id} className={`px-4 py-4 overflow-ellipsis text-left table-text`}>
             {row.getVisibleCells().map((cell) => (
@@ -16,3 +16,5 @@ export const TransactionRow: React.FC<TransactionRowProps> = ({ row }) => {
         </tr>
     );
 };
+
+export default React.memo(TransactionRow);

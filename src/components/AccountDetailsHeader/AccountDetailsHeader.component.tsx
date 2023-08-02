@@ -12,7 +12,7 @@ type Props = {
 
 const IMAGE_WIDTH = 180
 const IMAGE_HEIGHT = 37
-export default function AccountDetailsHeader({accountHolderNames, availableBalance, currencyCode, accountNumber, bankCode}: Props) {
+export const AccountDetailsHeader: React.FC<Props> = ({accountHolderNames, availableBalance, currencyCode, accountNumber, bankCode,}) => {
     return (
             <div className={"grid grid-cols-1 md:grid-cols-2 lg:pr-20"}>
                 <div className={"grid grid-cols-1 gap-4 p-4 align-center"}>
