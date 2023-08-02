@@ -52,7 +52,6 @@ describe('StringFormatter', () => {
         });
     });
 
-
     const capitaliseSentencesTests = [
         {
             input: 'hello world!',
@@ -69,5 +68,4 @@ describe('StringFormatter', () => {
             expect(capitaliseWordsInSentence(test.input)).toBe(test.expected);
         });
     });
-
 });

@@ -56,7 +56,7 @@ export default function TransactionTable({customerTransactions} : Props) {
                                         <div
                                             {...{
                                                 className: header.column.getCanSort()
-                                                    ? 'cursor-pointer select-none flex justify-between'
+                                                    ? 'cursor-pointer select-none flex justify-between items-center'
                                                     : '',
                                                 onClick: header.column.getToggleSortingHandler(),
                                             }}
@@ -93,7 +93,7 @@ export default function TransactionTable({customerTransactions} : Props) {
             </div>
             <div className={'flex justify-center items-center'}>
                 <Button onClick={() => table.setPageIndex(0)} label='First'/>
-                <Button onClick={() => () => table.previousPage()} disabled={!table.getCanPreviousPage()}
+                <Button onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}
                         label='Previous'/>
                 <p>
                     {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}

@@ -51,7 +51,6 @@ export const AccountDetailsHeader: React.FC<Props> = ({
                         </div>
                     </div>
                 </div>
-
         </div>
     );
 };
