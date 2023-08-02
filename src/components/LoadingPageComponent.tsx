@@ -26,5 +26,5 @@ export default function LoadingPageComponent() {
                 <h6>Getting your data....</h6>
             </div>
         </div>
-    )
-}
+    );
+};

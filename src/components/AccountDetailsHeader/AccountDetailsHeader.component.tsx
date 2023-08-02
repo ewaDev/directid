@@ -5,23 +5,29 @@ import {formatBranchCode} from "@/utils/StringFormatter/StringFormatter";
 type Props = {
     accountHolderNames: string
     availableBalance: string
-    currencyCode:string
-    accountNumber:string
-    bankCode:string
+    currencyCode: string
+    accountNumber: string
+    bankCode: string
 }
 
-const IMAGE_WIDTH = 180
-const IMAGE_HEIGHT = 37
-export const AccountDetailsHeader: React.FC<Props> = ({accountHolderNames, availableBalance, currencyCode, accountNumber, bankCode,}) => {
+const IMAGE_WIDTH = 180;
+const IMAGE_HEIGHT = 37;
+export const AccountDetailsHeader: React.FC<Props> = ({
+                                                          accountHolderNames,
+                                                          availableBalance,
+                                                          currencyCode,
+                                                          accountNumber,
+                                                          bankCode,
+                                                      }) => {
     return (
-            <div className={"grid grid-cols-1 md:grid-cols-2 lg:pr-20"}>
-                <div className={"grid grid-cols-1 gap-4 p-4 align-center"}>
-                    <Image
-                        src="/directid_logo.svg"
-                        alt="directid logo"
-                        width={IMAGE_WIDTH}
-                        height={IMAGE_HEIGHT}
-                        // Commenting out `priority` fixes the error:
+        <div className={"grid grid-cols-1 md:grid-cols-2 lg:pr-20"}>
+            <div className={"grid grid-cols-1 gap-4 p-4 align-center"}>
+                <Image
+                    src="/directid_logo.svg"
+                    alt="directid logo"
+                    width={IMAGE_WIDTH}
+                    height={IMAGE_HEIGHT}
+                    // Commenting out `priority` fixes the error:
                         // (0 , _reactdom.preload) is not a function in testing
                         // However, it also disables preloading the image, which is not ideal.
                         // this is a next js issue https://github.com/vercel/next.js/issues/53272
@@ -46,6 +52,6 @@ export const AccountDetailsHeader: React.FC<Props> = ({accountHolderNames, avail
                     </div>
                 </div>
 
-            </div>
-    )
-}
+        </div>
+    );
+};

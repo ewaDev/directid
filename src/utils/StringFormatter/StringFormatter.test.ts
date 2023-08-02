@@ -1,5 +1,5 @@
 import {describe, it, expect} from "@jest/globals";
-import {capitaliseWordsInSentence, formatBranchCode, formatCurrency} from './StringFormatter'
+import {capitaliseWordsInSentence, formatBranchCode, formatCurrency} from './StringFormatter';
 
 describe('StringFormatter', () => {
     const formatBranchCodeTests = [
@@ -15,11 +15,11 @@ describe('StringFormatter', () => {
             input: '',
             expected: ''
         },
-    ]
+    ];
 
     formatBranchCodeTests.forEach(test => {
         it(`should format the string ${test.input} into 2 numbers followed by a dash`, () => {
-            expect(formatBranchCode(test.input)).toBe(test.expected)
+            expect(formatBranchCode(test.input)).toBe(test.expected);
         });
     });
 
@@ -48,7 +48,7 @@ describe('StringFormatter', () => {
     ];
     formatCurrencyTests.forEach(test => {
         it(`Should return ${test.expected}, given ${test.input.currency} currency and ${test.input.amount} amount`, () => {
-            expect(formatCurrency(test.input.countryCode, test.input.currency, test.input.amount)).toBe(test.expected)
+            expect(formatCurrency(test.input.countryCode, test.input.currency, test.input.amount)).toBe(test.expected);
         });
     });
 
@@ -66,8 +66,8 @@ describe('StringFormatter', () => {
     ];
     capitaliseSentencesTests.forEach(test => {
         it(`Should return ${test.expected}, given ${test.input}`, () => {
-            expect(capitaliseWordsInSentence(test.input)).toBe(test.expected)
+            expect(capitaliseWordsInSentence(test.input)).toBe(test.expected);
         });
     });
 
-})
+});
