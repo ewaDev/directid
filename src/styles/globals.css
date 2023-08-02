@@ -69,6 +69,8 @@ p {
   font-weight: 300;
 }
 
+
+
 table thead th:first-child{
   border-radius:10px 0 0 10px;
 }
