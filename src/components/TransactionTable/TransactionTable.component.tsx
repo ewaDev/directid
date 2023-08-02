@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, {useMemo} from "react";
 import Image from "next/image";
 
@@ -7,19 +7,19 @@ import {
     getCoreRowModel, getSortedRowModel, SortingState,
     useReactTable,
     getPaginationRowModel
-} from '@tanstack/react-table'
-import { CustomerTransactionData} from "@/types/Transaction";
+} from '@tanstack/react-table';
+import {CustomerTransactionData} from "@/types/Transaction";
 import {TransactionTableColumns} from "@/components/TransactionTable/TransactionTableColumns";
 import TransactionRow from "@/components/TransactionTable/TransactionTableRow.component";
 import Button from "@/components/common/Button.component";
 
-const ICON_SIZE = 14
+const ICON_SIZE = 14;
 
 type Props = {
     customerTransactions: Array<CustomerTransactionData>
 }
 export default function TransactionTable({customerTransactions} : Props) {
-    const [sorting, setSorting] = React.useState<SortingState>([])
+    const [sorting, setSorting] = React.useState<SortingState>([]);
     const tableData = useMemo(() => customerTransactions, [customerTransactions]);
 
     const table = useReactTable({
@@ -40,7 +40,7 @@ export default function TransactionTable({customerTransactions} : Props) {
                 pageSize: 15,
             },
         },
-    })
+    });
 
     return(
         <div>
@@ -59,7 +59,6 @@ export default function TransactionTable({customerTransactions} : Props) {
                                                     ? 'cursor-pointer select-none flex justify-between'
                                                     : '',
                                                 onClick: header.column.getToggleSortingHandler(),
-
                                             }}
                                         >
                                             {flexRender(
@@ -67,13 +66,20 @@ export default function TransactionTable({customerTransactions} : Props) {
                                                 header.getContext()
                                             )}
                                             {{
-                                                asc: <Image alt='arrow up icon' src="/ArrowDown.svg"  width={ICON_SIZE} height={ICON_SIZE} style={{transform: 'rotate(180deg)' ,width: ICON_SIZE, height: ICON_SIZE} } />,
-                                                desc: <Image alt='arrow down icon' src="/ArrowDown.svg"  width={ICON_SIZE} height={ICON_SIZE} style={{width: ICON_SIZE, height: ICON_SIZE} } />,
+                                                asc: <Image alt='arrow up icon' src="/ArrowDown.svg" width={ICON_SIZE}
+                                                            height={ICON_SIZE} style={{
+                                                    transform: 'rotate(180deg)',
+                                                    width: ICON_SIZE,
+                                                    height: ICON_SIZE
+                                                }}/>,
+                                                desc: <Image alt='arrow down icon' src="/ArrowDown.svg"
+                                                             width={ICON_SIZE} height={ICON_SIZE}
+                                                             style={{width: ICON_SIZE, height: ICON_SIZE}}/>,
                                             }[header.column.getIsSorted() as string] ?? null}
                                         </div>
                                     )}
                                 </th>
-                            )
+                            );
                         })}
                     </tr>
                 ))}
@@ -85,15 +91,16 @@ export default function TransactionTable({customerTransactions} : Props) {
                 </tbody>
             </table>
             </div>
-                <div className={'flex justify-center items-center'}>
-                    <Button onClick={() => table.setPageIndex(0)} label='First' />
-                    <Button onClick={() => () => table.previousPage()} disabled={!table.getCanPreviousPage()} label='Previous' />
+            <div className={'flex justify-center items-center'}>
+                <Button onClick={() => table.setPageIndex(0)} label='First'/>
+                <Button onClick={() => () => table.previousPage()} disabled={!table.getCanPreviousPage()}
+                        label='Previous'/>
                 <p>
                     {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
                 </p>
-                <Button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()} label={'Next'}  />
-                <Button onClick={() => table.setPageIndex(table.getPageCount() -1)} label={'Last'} />
+                <Button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()} label={'Next'}/>
+                <Button onClick={() => table.setPageIndex(table.getPageCount() - 1)} label={'Last'}/>
             </div>
         </div>
-    )
+    );
 }

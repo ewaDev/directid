@@ -2,7 +2,7 @@ import {createColumnHelper} from "@tanstack/react-table";
 import {CustomerTransactionData} from "@/types/Transaction";
 import React from "react";
 
-const columnHelper = createColumnHelper<CustomerTransactionData>()
+const columnHelper = createColumnHelper<CustomerTransactionData>();
 export const TransactionTableColumns = [
     columnHelper.accessor(row => row.description, {
         id: 'Transaction',
@@ -38,4 +38,4 @@ export const TransactionTableColumns = [
         header: () => <span>Balance</span>,
         enableSorting: false
     }),
-]
+];

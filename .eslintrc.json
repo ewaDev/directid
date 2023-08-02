@@ -7,11 +7,18 @@
   ],
   "env": {
     "node": true,
+    "browser": true,
     "es6": true
   },
   "plugins": [
     "react"
   ],
+  "rules": {
+    "semi": [
+      2,
+      "always"
+    ]
+  },
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",

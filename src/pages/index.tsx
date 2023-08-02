@@ -7,12 +7,10 @@ import LoadingPageComponent from "@/components/LoadingPageComponent";
 import {formatCurrency} from "@/utils/StringFormatter/StringFormatter";
 import {ProviderData} from "@/pages/api/provider.type";
 import {AccountDetailsHeader} from "@/components/AccountDetailsHeader/AccountDetailsHeader.component";
-
-
 export default function Home({customerTransactions, availableBalance,accountHolderNames, currencyCode, accountNumber, bankCode}:any) {
 
     if (customerTransactions === null) {
-        return (<LoadingPageComponent/>)
+        return (<LoadingPageComponent/>);
     }
 
     return (
@@ -25,55 +23,49 @@ export default function Home({customerTransactions, availableBalance,accountHold
                     accountNumber={accountNumber}
                     bankCode={bankCode}
                 />
-                <TransactionTable customerTransactions={customerTransactions} />
+                <TransactionTable customerTransactions={customerTransactions}/>
             </div>
         </main>
-  )
+    );
 }
 
+
+const EmptyProps: any = {
+    props: {
+        customerTransactions: null,
+        availableBalance: null,
+        accountHolderNames: null,
+        currencyCode: null,
+        accountNumber: null,
+        bankCode: null
+    },
+};
+
 export async function getStaticProps() {
-    let fetchedData: ProviderData ;
+    let fetchedData: ProviderData;
 
     try {
-        fetchedData = await getProviderData()
+        fetchedData = await getProviderData();
     } catch {
-        return {
-            props: {
-                customerTransactions: null,
-                availableBalance: null,
-                accountHolderNames: null,
-                currencyCode: null,
-                accountNumber: null,
-                bankCode:null
-            },
-        };
+        return EmptyProps;
     }
 
-    if(!fetchedData) {
-        return {
-            props: {
-                customerTransactions: null,
-                availableBalance: null,
-                accountHolderNames: null,
-                currencyCode: null,
-                accountNumber: null,
-                bankCode:null
-            },
-        };
+    if (!fetchedData) {
+        return EmptyProps;
     }
 
-    const {accounts, countryCode} = fetchedData
-    const {balances, transactions} = accounts[0]
-    const {accountHolderNames, identifiers, currencyCode} = accounts[0]
-    const {accountNumber, bankCode} = identifiers
+    const {accounts, countryCode} = fetchedData;
+    const {balances, transactions} = accounts[0];
+    const {accountHolderNames, identifiers, currencyCode} = accounts[0];
+    const {accountNumber, bankCode} = identifiers;
 
-    let availableBalance = balances.available.amount
+    let availableBalance = balances.available.amount;
 
-    if(balances.available.creditDebitIndicator === "Credit") {
-        availableBalance = availableBalance * -1
+    if (balances.available.creditDebitIndicator === "Credit") {
+        availableBalance = availableBalance * -1;
     }
-    const customerBalance = formatCurrency(countryCode,currencyCode, availableBalance)
-    const customerTransactions = formatAndGetBalance(transactions, currencyCode, countryCode, availableBalance)
+    const customerBalance = formatCurrency(countryCode, currencyCode, availableBalance);
+    const customerTransactions = formatAndGetBalance(transactions, currencyCode, countryCode, availableBalance);
 
     return {
         props: {

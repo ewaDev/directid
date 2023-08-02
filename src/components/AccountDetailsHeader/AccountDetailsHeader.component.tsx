@@ -26,7 +26,7 @@ export const AccountDetailsHeader: React.FC<Props> = ({accountHolderNames, avail
                         // However, it also disables preloading the image, which is not ideal.
                         // this is a next js issue https://github.com/vercel/next.js/issues/53272
                         // leaving as not real production code
-                        priority
+                        // priority
                         style={{width: IMAGE_WIDTH, height: IMAGE_HEIGHT}}
                     />
                     <h4 className={"dark-font bold"}> User Transactions ({currencyCode}) </h4>

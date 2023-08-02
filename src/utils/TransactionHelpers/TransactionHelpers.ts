@@ -16,22 +16,22 @@ export function formatAndGetBalance(transactions:Array<any>, currencyCode:string
         };
 
         if(item.creditDebitIndicator === 'Debit'){
-            currentBalance = index === 0 ? currentBalance : currentBalance + item.amount
-            transactionItem.balance = formatCurrency(countryCode, currencyCode,currentBalance)
-            transactionItem.debit = formatCurrency(countryCode, currencyCode, item.amount)
-            transactionItem.credit = '-'
+            currentBalance = index === 0 ? currentBalance : currentBalance + item.amount;
+            transactionItem.balance = formatCurrency(countryCode, currencyCode,currentBalance);
+            transactionItem.debit = formatCurrency(countryCode, currencyCode, item.amount);
+            transactionItem.credit = '-';
         } else {
-            currentBalance = index === 0 ? currentBalance : currentBalance - item.amount
-            transactionItem.balance = formatCurrency(countryCode, currencyCode, currentBalance)
-            transactionItem.credit = formatCurrency(countryCode, currencyCode, item.amount)
-            transactionItem.debit = '-'
+            currentBalance = index === 0 ? currentBalance : currentBalance - item.amount;
+            transactionItem.balance = formatCurrency(countryCode, currencyCode, currentBalance);
+            transactionItem.credit = formatCurrency(countryCode, currencyCode, item.amount);
+            transactionItem.debit = '-';
         }
 
         transactionItem.transactionId = item.transactionId;
         transactionItem.description = capitaliseWordsInSentence(item.description);
-        transactionItem.date = item.bookingDate
+        transactionItem.date = item.bookingDate;
         transactionItem.category= item.enrichedData?.category.name;
 
-        return transactionItem
-    })
+        return transactionItem;
+    });
 }
